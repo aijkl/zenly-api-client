@@ -1,9 +1,10 @@
-﻿using Zenly.APIClient.Clients;
+﻿using System;
+using Zenly.APIClient.Clients;
 using Zenly.APIClient.Internal;
 
 namespace Zenly.APIClient
 {
-    public class ZenlyAPIClient
+    public class ZenlyAPIClient : IDisposable
     {
         private RestClient _restClient;
         public ZenlyAPIClient(string token)
@@ -13,5 +14,11 @@ namespace Zenly.APIClient
         }
 
         public WidgetClient WidgetClient { get; }
+
+        public void Dispose()
+        {
+            _restClient?.Dispose();
+            _restClient = null;
+        }
     }
 }

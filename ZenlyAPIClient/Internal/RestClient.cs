@@ -16,6 +16,7 @@ namespace Zenly.APIClient.Internal
             }
 
             var httpClientHandler = new HttpClientHandler();
+            httpClientHandler.AutomaticDecompression = DecompressionMethods.All;
             httpClientHandler.UseCookies = true;
             _httpClient = new HttpClient(httpClientHandler); 
             _httpClient.DefaultRequestHeaders.Add("Authorization",$"Token {token}");

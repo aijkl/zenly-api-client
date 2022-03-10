@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Zenly.APIClient
+﻿namespace Zenly.APIClient
 {
     public class UserLocationWidget
     {
+        public string UserId { set; get; }
+        public double Longitude { set; get; }
+        public double Latitude { set; get; }
     }
 }
