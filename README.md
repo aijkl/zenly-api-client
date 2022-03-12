@@ -10,7 +10,7 @@ Console.WriteLine(userLocation.Longitude);//経度
 
 # 注意  
 ```FetchUsersLocation```は3人以上の位置情報を取得できます  
-ですが恐らくサーバーのバグです、iOS Widgetsからは3人しか表示できません
+ですが恐らくサーバーのバグです、iOS Widgetsからは3人までしか表示できません
 
 <img width="325" src="https://user-images.githubusercontent.com/51302983/158004484-74b76bda-97ac-491c-8c7a-e0ea6ae6a96e.jpg">
 
