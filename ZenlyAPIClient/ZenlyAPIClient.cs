@@ -4,10 +4,10 @@ using Zenly.APIClient.Internal;
 
 namespace Zenly.APIClient
 {
-    public class ZenlyAPIClient : IDisposable
+    public class ZenlyApiClient : IDisposable
     {
         private RestClient _restClient;
-        public ZenlyAPIClient(string token)
+        public ZenlyApiClient(string token)
         {
             _restClient = new RestClient(token);
             WidgetClient = new WidgetClient(_restClient);

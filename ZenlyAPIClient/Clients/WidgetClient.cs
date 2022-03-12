@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ProtoBuf;
 using Zenly.APIClient.Internal;
@@ -13,8 +15,7 @@ namespace Zenly.APIClient.Clients
         {
             _restClient = restClient;
         }
-
-        public async Task<UserLocationWidget> FetchLocation(string userId)
+        public async Task<UserLocation> FetchUserLocation(string userId)
         {
             if (userId == null) throw new ArgumentNullException(nameof(userId));
 
@@ -22,13 +23,30 @@ namespace Zenly.APIClient.Clients
             var httpResponseMessage = await _restClient.SendRequest(httpRequestMessage);
             await using var stream = await httpResponseMessage.Content.ReadAsStreamAsync();
 
-            RootObject rootObject = Serializer.Deserialize<RootObject>(stream);
-            return new UserLocationWidget
+            Internal.Protobuf.UserLocation rootObject = Serializer.Deserialize<Internal.Protobuf.UserLocation>(stream);
+            return new UserLocation
             {
                 UserId = userId,
-                Latitude = rootObject.Child1.Child2.Latitude,
-                Longitude = rootObject.Child1.Child2.Longitude
+                Latitude = rootObject.User.Location.Latitude,
+                Longitude = rootObject.User.Location.Longitude
             };
+        }
+        public async Task<IEnumerable<UserLocation>> FetchUsersLocation(string[] userIds)
+        {
+            if (userIds == null) throw new ArgumentNullException(nameof(userIds));
+            if (userIds.Length == 0) throw new ArgumentException("Value cannot be an empty collection.", nameof(userIds));
+
+            var httpRequestMessage = WidgetRequest.CreateGetRequest($"/pincontext/{string.Join(",", userIds)}?preview=0");
+            var httpResponseMessage = await _restClient.SendRequest(httpRequestMessage);
+            await using var stream = await httpResponseMessage.Content.ReadAsStreamAsync();
+
+            UsersLocation rootObject = Serializer.Deserialize<UsersLocation>(stream);
+            return rootObject.Users.Select(x => new UserLocation()
+            {
+                UserId = x.UserId,
+                Latitude = x.Location.Latitude,
+                Longitude = x.Location.Longitude
+            });
         }
     }
 }

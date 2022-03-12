@@ -3,7 +3,7 @@
 namespace Zenly.APIClient.Internal.Protobuf
 {
     [ProtoContract]
-    internal class Child2
+    internal class Location
     {
         [ProtoMember(4)]
         public double Latitude { set; get; }
