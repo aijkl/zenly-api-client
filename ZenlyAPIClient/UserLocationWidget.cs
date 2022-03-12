@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Zenly.APIClient
+namespace Aijkl.Zenly.APIClient
 {
     public class UserLocation
     {

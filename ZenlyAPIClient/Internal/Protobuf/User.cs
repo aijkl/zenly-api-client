@@ -1,6 +1,6 @@
 ﻿using ProtoBuf;
 
-namespace Zenly.APIClient.Internal.Protobuf
+namespace Aijkl.Zenly.APIClient.Internal.Protobuf
 {
     [ProtoContract]
     internal class User

@@ -2,11 +2,11 @@
 using System.Net;
 using System.Net.Http;
 
-namespace Zenly.APIClient
+namespace Aijkl.Zenly.APIClient
 {
-    public class APIException : Exception
+    public class ZenlyApiException : Exception
     {
-        public APIException(HttpStatusCode httpStatusCode, HttpResponseMessage httpResponseMessage, string message = "", Exception innerException = null) : base(message, innerException)
+        public ZenlyApiException(HttpStatusCode httpStatusCode, HttpResponseMessage httpResponseMessage, string message = "", Exception innerException = null) : base(message, innerException)
         {
             HttpStatusCode = httpStatusCode;
             HttpResponseMessage = httpResponseMessage;

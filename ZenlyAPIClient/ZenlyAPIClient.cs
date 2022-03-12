@@ -1,8 +1,8 @@
 ﻿using System;
-using Zenly.APIClient.Clients;
-using Zenly.APIClient.Internal;
+using Aijkl.Zenly.APIClient.Clients;
+using Aijkl.Zenly.APIClient.Internal;
 
-namespace Zenly.APIClient
+namespace Aijkl.Zenly.APIClient
 {
     public class ZenlyApiClient : IDisposable
     {

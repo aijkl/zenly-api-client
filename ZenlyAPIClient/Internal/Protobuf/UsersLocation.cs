@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ProtoBuf;
 
-namespace Zenly.APIClient.Internal.Protobuf
+namespace Aijkl.Zenly.APIClient.Internal.Protobuf
 {
     [ProtoContract]
     class UsersLocation

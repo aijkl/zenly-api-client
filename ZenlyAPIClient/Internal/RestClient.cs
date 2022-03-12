@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Zenly.APIClient.Internal
+namespace Aijkl.Zenly.APIClient.Internal
 {
     internal class RestClient : IDisposable
     {
@@ -26,7 +26,7 @@ namespace Zenly.APIClient.Internal
             var httpResponseMessage = await _httpClient.SendAsync(httpRequestMessage, httpCompletionOption);
             if (httpResponseMessage.StatusCode != HttpStatusCode.OK)
             {
-                throw new APIException(httpResponseMessage.StatusCode, httpResponseMessage);
+                throw new ZenlyApiException(httpResponseMessage.StatusCode, httpResponseMessage);
             }
             return httpResponseMessage;
         }

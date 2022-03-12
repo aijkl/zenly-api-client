@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Aijkl.Zenly.APIClient.Internal;
+using Aijkl.Zenly.APIClient.Internal.Protobuf;
 using ProtoBuf;
-using Zenly.APIClient.Internal;
-using Zenly.APIClient.Internal.Protobuf;
 
-namespace Zenly.APIClient.Clients
+namespace Aijkl.Zenly.APIClient.Clients
 {
     public class WidgetClient
     {
@@ -31,10 +31,10 @@ namespace Zenly.APIClient.Clients
                 Longitude = rootObject.User.Location.Longitude
             };
         }
-        public async Task<IEnumerable<UserLocation>> FetchUsersLocation(string[] userIds)
+        public async Task<IEnumerable<UserLocation>> FetchUsersLocation(IEnumerable<string> userIds)
         {
             if (userIds == null) throw new ArgumentNullException(nameof(userIds));
-            if (userIds.Length == 0) throw new ArgumentException("Value cannot be an empty collection.", nameof(userIds));
+            if (!userIds.Any()) throw new ArgumentException("Value cannot be an empty collection.", nameof(userIds));
 
             var httpRequestMessage = WidgetRequest.CreateGetRequest($"/pincontext/{string.Join(",", userIds)}?preview=0");
             var httpResponseMessage = await _restClient.SendRequest(httpRequestMessage);

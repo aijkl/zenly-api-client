@@ -2,7 +2,7 @@
 using System.Text;
 using System.Net.Http;
 
-namespace Zenly.APIClient
+namespace Aijkl.Zenly.APIClient
 {
     internal static class WidgetRequest
     {
