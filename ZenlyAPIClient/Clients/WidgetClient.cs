@@ -15,38 +15,28 @@ namespace Aijkl.Zenly.APIClient.Clients
         {
             _restClient = restClient;
         }
-        public async Task<UserLocation> FetchUserLocation(string userId)
+        public async Task<UserLocation> FetchUserLocationAsync(string userId, string token)
         {
             if (userId == null) throw new ArgumentNullException(nameof(userId));
 
-            var httpRequestMessage = WidgetRequest.CreateGetRequest($"/pincontext/{userId}?preview=0");
-            var httpResponseMessage = await _restClient.SendRequest(httpRequestMessage);
-            await using var stream = await httpResponseMessage.Content.ReadAsStreamAsync();
+            var httpRequestMessage = WidgetRequest.CreateGetRequest($"pincontext/{userId}?preview=0", token);
+            var httpResponseMessage = await _restClient.SendRequest(httpRequestMessage).ConfigureAwait(false);
+            await using var stream = await httpResponseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false);
 
-            Internal.Protobuf.UserLocation rootObject = Serializer.Deserialize<Internal.Protobuf.UserLocation>(stream);
-            return new UserLocation
-            {
-                UserId = userId,
-                Latitude = rootObject.User.Location.Latitude,
-                Longitude = rootObject.User.Location.Longitude
-            };
+            var rootObject = Serializer.Deserialize<Internal.Protobuf.UserLocation>(stream);
+            return new UserLocation(userId, rootObject.User.Location.Longitude, rootObject.User.Location.Latitude);
         }
-        public async Task<IEnumerable<UserLocation>> FetchUsersLocation(IEnumerable<string> userIds)
+        public async Task<IEnumerable<UserLocation>> FetchUsersLocationAsync(IEnumerable<string> userIds, string token)
         {
             if (userIds == null) throw new ArgumentNullException(nameof(userIds));
             if (!userIds.Any()) throw new ArgumentException("Value cannot be an empty collection.", nameof(userIds));
 
-            var httpRequestMessage = WidgetRequest.CreateGetRequest($"/pincontext/{string.Join(",", userIds)}?preview=0");
-            var httpResponseMessage = await _restClient.SendRequest(httpRequestMessage);
-            await using var stream = await httpResponseMessage.Content.ReadAsStreamAsync();
+            var httpRequestMessage = WidgetRequest.CreateGetRequest($"pincontext/{string.Join(",", userIds)}?preview=0", token);
+            var httpResponseMessage = await _restClient.SendRequest(httpRequestMessage).ConfigureAwait(false);
+            await using var stream = await httpResponseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false);
 
-            UsersLocation rootObject = Serializer.Deserialize<UsersLocation>(stream);
-            return rootObject.Users.Select(x => new UserLocation()
-            {
-                UserId = x.UserId,
-                Latitude = x.Location.Latitude,
-                Longitude = x.Location.Longitude
-            });
+            var rootObject = Serializer.Deserialize<UsersLocation>(stream);
+            return rootObject.Users.Select(x => new UserLocation(x.UserId,x.Location.Longitude,x.Location.Latitude));
         }
     }
 }

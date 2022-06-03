@@ -7,9 +7,9 @@ namespace Aijkl.Zenly.APIClient
     public class ZenlyApiClient : IDisposable
     {
         private RestClient _restClient;
-        public ZenlyApiClient(string token)
+        public ZenlyApiClient()
         {
-            _restClient = new RestClient(token);
+            _restClient = new RestClient();
             WidgetClient = new WidgetClient(_restClient);
         }
 
