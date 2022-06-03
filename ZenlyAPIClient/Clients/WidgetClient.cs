@@ -26,10 +26,10 @@ namespace Aijkl.Zenly.APIClient.Clients
             var rootObject = Serializer.Deserialize<Internal.Protobuf.UserLocation>(stream);
             return new UserLocation(userId, rootObject.User.Location.Longitude, rootObject.User.Location.Latitude);
         }
-        public async Task<IEnumerable<UserLocation>> FetchUsersLocationAsync(IEnumerable<string> userIds, string token)
+        public async Task<IEnumerable<UserLocation>> FetchUsersLocationAsync(string[] userIds, string token)
         {
             if (userIds == null) throw new ArgumentNullException(nameof(userIds));
-            if (!userIds.Any()) throw new ArgumentException("Value cannot be an empty collection.", nameof(userIds));
+            if (userIds.Length != 0) throw new ArgumentException("Value cannot be an empty collection.", nameof(userIds));
 
             var httpRequestMessage = WidgetRequest.CreateGetRequest($"pincontext/{string.Join(",", userIds)}?preview=0", token);
             var httpResponseMessage = await _restClient.SendRequest(httpRequestMessage).ConfigureAwait(false);
