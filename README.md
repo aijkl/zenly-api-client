@@ -18,3 +18,6 @@ Console.WriteLine(userLocation.Longitude);//経度
 https://www.telerik.com/forums/https-on-ios15  
 ↑を使用してiOSのWidlgetsをパケットキャプチャする  
 ![スクリーンショット 2022-03-10 235243](https://user-images.githubusercontent.com/51302983/157687708-82a39d3d-06c6-4453-a046-22df0ef2ca9a.jpg)  
+
+活用プロジェクト  
+https://github.com/aijkl/zenly-analytics
