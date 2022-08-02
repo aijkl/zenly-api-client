@@ -2,7 +2,7 @@
 ####  ZenlyのAPIからフレンドの位置情報を取得する  
 ```csharp
 var zenlyApiClient = new ZenlyAPIClient(token:"s-sample-sample-sample-sample");//token
-var usersLocation = await zenlyApiClient.WidgetClient.FetchUsersLocation(new []{ "u-HRwfBLo8BqdU7WSEE0P8Nch1qiBVtUlG", "u-BgUiXncsnSk0C0mib0KJXmgoU0gxmBzr", "u-t0B0P4ub1FUR2pZc2YyvxU0LiVsFuHgB", "u-Kk4C7x108d8wkYj1rFkC2gwSkkCs8d7o" });
+var usersLocation = await zenlyApiClient.WidgetClient.FetchUserLocation("u-HRwfBLo8BqdU7WSEE0P8Nch1qiBVtUlG");
 Console.WriteLine(userLocation.Latitude);//緯度
 Console.WriteLine(userLocation.Longitude);//経度
 ```
