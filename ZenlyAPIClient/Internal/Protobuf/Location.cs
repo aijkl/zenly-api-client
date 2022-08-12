@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿#nullable disable
+using ProtoBuf;
 
 namespace Aijkl.Zenly.APIClient.Internal.Protobuf
 {

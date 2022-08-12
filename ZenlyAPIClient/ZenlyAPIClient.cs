@@ -6,7 +6,8 @@ namespace Aijkl.Zenly.APIClient
 {
     public class ZenlyApiClient : IDisposable
     {
-        private RestClient _restClient;
+        private readonly RestClient _restClient;
+        private bool _disposed;
         public ZenlyApiClient()
         {
             _restClient = new RestClient();
@@ -17,8 +18,10 @@ namespace Aijkl.Zenly.APIClient
 
         public void Dispose()
         {
-            _restClient?.Dispose();
-            _restClient = null;
+            if (!_disposed) return;
+
+            _restClient.Dispose();
+            _disposed = true;
         }
     }
 }

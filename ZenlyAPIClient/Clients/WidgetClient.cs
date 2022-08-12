@@ -17,8 +17,6 @@ namespace Aijkl.Zenly.APIClient.Clients
         }
         public async Task<UserLocation> FetchUserLocationAsync(string userId, string token)
         {
-            if (userId == null) throw new ArgumentNullException(nameof(userId));
-
             var httpRequestMessage = WidgetRequest.CreateGetRequest($"pincontext/{userId}?preview=0", token);
             var httpResponseMessage = await _restClient.SendRequest(httpRequestMessage).ConfigureAwait(false);
             await using var stream = await httpResponseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false);
@@ -28,15 +26,14 @@ namespace Aijkl.Zenly.APIClient.Clients
         }
         public async Task<IEnumerable<UserLocation>> FetchUsersLocationAsync(string[] userIds, string token)
         {
-            if (userIds == null) throw new ArgumentNullException(nameof(userIds));
-            if (userIds.Length != 0) throw new ArgumentException("Value cannot be an empty collection.", nameof(userIds));
+            if (userIds.Length == 0) throw new ArgumentException("Value cannot be an empty collection.", nameof(userIds));
 
             var httpRequestMessage = WidgetRequest.CreateGetRequest($"pincontext/{string.Join(",", userIds)}?preview=0", token);
             var httpResponseMessage = await _restClient.SendRequest(httpRequestMessage).ConfigureAwait(false);
             await using var stream = await httpResponseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false);
 
             var rootObject = Serializer.Deserialize<UsersLocation>(stream);
-            return rootObject.Users.Select(x => new UserLocation(x.UserId,x.Location.Longitude,x.Location.Latitude));
+            return rootObject.Users.Select(x => new UserLocation(x.UserId, x.Location.Longitude, x.Location.Latitude));
         }
     }
 }

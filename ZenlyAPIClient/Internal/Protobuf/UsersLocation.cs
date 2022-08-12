@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿#nullable disable
+using System.Collections.Generic;
 using ProtoBuf;
 
 namespace Aijkl.Zenly.APIClient.Internal.Protobuf
 {
     [ProtoContract]
-    class UsersLocation
+    internal class UsersLocation
     {
         [ProtoMember(1)]
         public List<User> Users { set; get; }
