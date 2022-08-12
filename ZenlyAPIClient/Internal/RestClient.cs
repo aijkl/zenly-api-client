@@ -7,7 +7,8 @@ namespace Aijkl.Zenly.APIClient.Internal
 {
     internal class RestClient : IDisposable
     {
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
+        private bool _disposed;
         internal RestClient()
         {
             var httpClientHandler = new HttpClientHandler();
@@ -26,8 +27,10 @@ namespace Aijkl.Zenly.APIClient.Internal
         }
         public void Dispose()
         {
-            _httpClient?.Dispose();
-            _httpClient = null;
+            if (!_disposed) return;
+
+            _httpClient.Dispose();
+            _disposed = true;
         }
     }
 }

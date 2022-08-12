@@ -1,14 +1,15 @@
-﻿using ProtoBuf;
+﻿#nullable disable
+using ProtoBuf;
 
 namespace Aijkl.Zenly.APIClient.Internal.Protobuf
 {
     [ProtoContract]
     internal class User
     {
-        [ProtoMember(3)]
+        [ProtoMember(3)] 
         public string UserId { set; get; }
 
-        [ProtoMember(4)]
+        [ProtoMember(4)] 
         public Location Location { set; get; }
     }
 }
